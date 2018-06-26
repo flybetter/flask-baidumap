@@ -9,11 +9,27 @@
 
 
 class House:
-	def __init__(self, lng, lat, name, count):
+	def __init__(self, lng, lat, name):
 		self.lng = float(lng)
 		self.lat = float(lat)
 		self.name = name
+		self.count = 50
+
+	@property
+	def count(self):
+		return self.count
+
+	@count.setter
+	def count(self, count):
 		self.count = count
+
+	@property
+	def name(self):
+		return self.name
+
+	@name.setter
+	def name(self, name):
+		self.name = name
 
 	def __eq__(self, other):
 		if isinstance(other, House):

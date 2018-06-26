@@ -9,7 +9,7 @@
 import pymysql.cursors
 
 
-def save(data):
+def save(name, json, children_json):
 	connection = pymysql.connect(
 		host='192.168.10.200',
 		port=3306,
@@ -18,7 +18,7 @@ def save(data):
 		database='demo'
 	)
 	cursor = connection.cursor()
-	sql = "insert into lianjia_json (name,json,children_json) VALUES ('11','22','33')"
+	sql = "insert into lianjia_json (name,json,children_json) VALUES (%s,%s,%s)" % (name, json, children_json)
 	cursor.execute(sql)
 	connection.commit()
 	cursor.close()
