@@ -16,8 +16,14 @@ from bs4 import BeautifulSoup
 import re
 from app.model.House import House
 from itertools import groupby
+from app.mysql.json import save
 
-logging.basicConfig(level=logging.DEBUG)
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
+
+logging.basicConfig(level=logging.INFO)
 # https://nj.lianjia.com/ershoufang/esfrecommend?id=103102480999
 # https://nj.lianjia.com/ershoufang/esfrecommend?id=103102455850
 
@@ -126,6 +132,7 @@ def xiaoqu_detect(name):
 	for object in list:
 		# 获得小区里面房子
 		house_top, house_id = get_House(object['href'])
+		house_top.count = HOUSECOUNT['Top']
 		xiaoqu_result.extend(xiaoqu_children_detect(house_id))
 
 	# print json.dumps(xiaoqu_result, default=lambda object: object.__dict__, ensure_ascii=False)
@@ -137,7 +144,6 @@ def xiaoqu_detect(name):
 	key_group = groupby(xiaoqu_result, key=lambda object: object.name)
 
 	for i, key in enumerate(key_group):
-		print key[0]
 		if key == name:
 			continue
 		if i == 0:
@@ -156,7 +162,10 @@ def xiaoqu_detect(name):
 			house = xiaoqu_dict[key[0]]
 			final_result.append(house)
 
-	print json.dumps(final_result, default=lambda x: x.__dict__, ensure_ascii=False)
+	return name, json.dumps(house_top, default=lambda x: x.__dict__, ensure_ascii=False), json.dumps(final_result,
+																									 default=lambda
+																										 x: x.__dict__,
+																									 ensure_ascii=False)
 
 
 def xiaoqu_children_detect(houseId):
@@ -190,6 +199,14 @@ if __name__ == '__main__':
 		if not next_page:
 			break
 		response = request_url(next_page)
+
+	for name in xiaoqu_name:
+		try:
+			name, json, children_json = xiaoqu_detect(name)
+			save(name, json, children_json)
+		except Exception, e:
+			logging.info(str(e))
+			continue
 
 # 获得房子名 by小区名称
 # for name in xiaoqu_name:

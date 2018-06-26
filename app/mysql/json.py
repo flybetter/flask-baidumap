@@ -15,10 +15,12 @@ def save(name, json, children_json):
 		port=3306,
 		user='root',
 		password='',
-		database='demo'
+		database='demo',
+		use_unicode=True,
+		charset="utf8"
 	)
 	cursor = connection.cursor()
-	sql = "insert into lianjia_json (name,json,children_json) VALUES (%s,%s,%s)" % (name, json, children_json)
+	sql = "insert into lianjia_json (name,json,children_json) VALUES ('%s','%s','%s')" % (name, json, children_json)
 	cursor.execute(sql)
 	connection.commit()
 	cursor.close()
