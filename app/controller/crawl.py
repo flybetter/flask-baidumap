@@ -16,14 +16,14 @@ from bs4 import BeautifulSoup
 import re
 from app.model.House import House
 from itertools import groupby
-from app.mysql.json import save
+from app.mysql.json_data import save
 
 import sys
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 # https://nj.lianjia.com/ershoufang/esfrecommend?id=103102480999
 # https://nj.lianjia.com/ershoufang/esfrecommend?id=103102455850
 
@@ -144,7 +144,7 @@ def xiaoqu_detect(name):
 	key_group = groupby(xiaoqu_result, key=lambda object: object.name)
 
 	for i, key in enumerate(key_group):
-		if key == name:
+		if key[0] == name:
 			continue
 		if i == 0:
 			house = xiaoqu_dict[key[0]]
@@ -193,12 +193,14 @@ def get_House(url):
 if __name__ == '__main__':
 	# 获取小区名称
 	response = request_url(XIAOQU_URL)
-	while True:
-		next_page = get_xiaoquname(response)
-		logging.debug(next_page)
-		if not next_page:
-			break
-		response = request_url(next_page)
+	# while True:
+	# 	next_page = get_xiaoquname(response)
+	# 	logging.debug(next_page)
+	# 	if not next_page:
+	# 		break
+	# 	response = request_url(next_page)
+
+	next_page = get_xiaoquname(response)
 
 	for name in xiaoqu_name:
 		try:
