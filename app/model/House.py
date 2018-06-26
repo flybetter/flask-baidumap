@@ -9,14 +9,15 @@
 
 
 class House:
-	def __init__(self, lng, lat, count):
+	def __init__(self, lng, lat, name, count):
 		self.lng = float(lng)
 		self.lat = float(lat)
+		self.name = name
 		self.count = count
 
 	def __eq__(self, other):
 		if isinstance(other, House):
-			return self.lat == other.lat and self.lng == other.lng and self.count == other.count
+			return self.lat == other.lat and self.lng == other.lng
 		else:
 			return False
 
@@ -24,4 +25,4 @@ class House:
 		return not self.__eq__(other)
 
 	def __hash__(self):
-		return hash(self.count) + hash(self.lat) + hash(self.lng)
+		return hash(self.count) + hash(self.lat) + hash(self.lng) + hash(self.name)
