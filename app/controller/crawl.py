@@ -202,10 +202,12 @@ if __name__ == '__main__':
 
 	next_page = get_xiaoquname(response)
 
+
+
 	for name in xiaoqu_name:
 		try:
-			name, json, children_json = xiaoqu_detect(name)
-			save(name, json, children_json)
+			name, parent_json, children_json = xiaoqu_detect(name)
+			save(name, parent_json, children_json)
 		except Exception, e:
 			logging.info(str(e))
 			continue

@@ -2,14 +2,13 @@
 # -*- coding: utf-8 -*-
 """
 @project= flask-baidumap
-@file= json
 @author= wubingyu
 @create_time= 2018/6/26 上午11:26
 """
 import pymysql.cursors
 
 
-def save(name, json, children_json):
+def save(name, parent_json, children_json):
 	connection = pymysql.connect(
 		host='192.168.10.200',
 		port=3306,
@@ -20,7 +19,8 @@ def save(name, json, children_json):
 		charset="utf8"
 	)
 	cursor = connection.cursor()
-	sql = "insert into lianjia_json (name,json,children_json) VALUES ('%s','%s','%s')" % (name, json, children_json)
+	sql = "insert into lianjia_json (name,parent_json,children_json) VALUES ('%s','%s','%s')" % (
+	name, parent_json, children_json)
 	cursor.execute(sql)
 	connection.commit()
 	cursor.close()

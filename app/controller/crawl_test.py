@@ -12,11 +12,10 @@ from app.controller.crawl import xiaoqu_detect
 from app.mysql.json_data import save
 
 import sys
+
 reload(sys)
 sys.setdefaultencoding('utf8')
-import json
 
-name, json, children_json = xiaoqu_detect("名都花园")
-print name, json, children_json
-save(name, json, children_json)
-
+name, paren_json, children_json = xiaoqu_detect("名都花园")
+print name, paren_json, children_json
+save(name, paren_json, children_json)
