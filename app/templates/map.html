@@ -42,6 +42,37 @@
     <input type="button" onclick="openHeatmap();" value="显示热力图"/><input type="button" onclick="closeHeatmap();"
                                                                         value="关闭热力图"/>
 </div>
+<div>
+    -------------------------------------------------
+</div>
+<div>
+    <table border="1">
+        <tr>
+            <th>id</th>
+            <th>小区名称</th>
+            <th>关联小区名称(按顺序排列)</th>
+        </tr>
+        {% if xiaoqu %}
+            <tr>
+                <td>{{ xiaoqu[0][0] }}</td>
+                <td>{{ xiaoqu[0][1] }}</td>
+                <td>
+                    {{ xiaoqu_name_list }}
+                </td>
+                <td>
+                </td>
+            </tr>
+        {% endif %}
+    </table>
+</div>
+<div>
+    -------------------------------------------------
+</div>
+<div>
+    {% for data in datas %}
+        <input type="button" id="{{ data[0] }}" value="{{ data[1] }}" onclick="xiaoqu_click(this.id)">
+    {% endfor %}
+</div>
 </body>
 </html>
 <script type="text/javascript">
@@ -54,7 +85,7 @@
 
     var json = {{ points|tojson }};
     {#var points = [{"lat": 32.026647751616, "count": 50, "lng": 118.86708168267}, {"lat": 32.021330008158, "count": 50, "lng": 118.86612779808}, {"lat": 32.023514380387, "count": 50, "lng": 118.87016390795}, {"lat": 32.021330008158, "count": 100, "lng": 118.86612779808}];#}
-    var points=JSON.parse(json)
+    var points = JSON.parse(json)
 
     if (!isSupportCanvas()) {
         alert('热力图目前只支持有canvas支持的浏览器,您所使用的浏览器不能使用热力图功能~')
@@ -87,7 +118,6 @@
         heatmapOverlay.hide();
     }
 
-    {#closeHeatmap();#}
 
     function setGradient() {
         /*格式如下所示:
@@ -109,5 +139,9 @@
     function isSupportCanvas() {
         var elem = document.createElement('canvas');
         return !!(elem.getContext && elem.getContext('2d'));
+    }
+
+    function xiaoqu_click(id) {
+        window.location.href = "/xiaoqu/" + id;
     }
 </script>
