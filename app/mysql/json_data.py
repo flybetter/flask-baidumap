@@ -35,7 +35,6 @@ def select_one(id):
 	sql = "select * from lianjia_json where id=" + id
 	cursor.execute(sql)
 	data = cursor.fetchall()
-	logging.info(data)
 	mysql_close(cursor, connection)
 	return data
 
