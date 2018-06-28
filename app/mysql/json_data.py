@@ -13,11 +13,11 @@ logging.basicConfig(level=logging.DEBUG)
 
 def save(name, parent_json, children_json):
 	connection = pymysql.connect(
-		host='192.168.10.200',
+		host='192.168.10.221',
 		port=3306,
 		user='root',
 		password='',
-		database='demo',
+		database='crawl',
 		use_unicode=True,
 		charset="utf8"
 	)

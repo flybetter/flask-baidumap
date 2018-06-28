@@ -63,7 +63,7 @@ def no_rel(tag):
 
 
 # 获得所有小区名称
-def get_xiaoquname(content):
+def get_xiaoquname(content, curpage, totalpage):
 	soup = BeautifulSoup(content, "html.parser")
 	# logging.debug(content)
 	list = soup.find_all(no_rel, limit=30)
@@ -72,14 +72,12 @@ def get_xiaoquname(content):
 		xiaoqu_name.add(re.search(">(.*)<", str(entry)).group(1))
 
 	page = re.search(r"{\"totalPage\":(\d+),\"curPage\":(\d+)}", content)
-	totalpage = int(page.group(1))
-	curpage = int(page.group(2))
 	logging.debug("totalPage:%d curPage:%d" % (totalpage, curpage))
 	# if curpage <= totalpage:
 	# 	return XIAOQU_PAGE_URL.replace("*", str(curpage + 1))
 	# else:
 	# 	return None
-	return XIAOQU_PAGE_URL.replace("*", str(curpage + 1))
+	return XIAOQU_PAGE_URL.replace("*", str(curpage))
 
 
 def get_house_by_xiaoqu(content):
@@ -205,8 +203,8 @@ if __name__ == '__main__':
 	# 获取小区名称
 	response = request_url(XIAOQU_URL)
 
-	for _ in range(179):
-		next_page = get_xiaoquname(response)
+	for i in range(179):
+		next_page = get_xiaoquname(response, i + 1, 179)
 		logging.debug(next_page)
 		response = request_url(next_page)
 
@@ -214,10 +212,10 @@ if __name__ == '__main__':
 
 	write(json.dumps(xiaoqu_name), file_path=XIAOQU_NAME)
 
-	# for name in xiaoqu_name:
-	# 	try:
-	# 		name, parent_json, children_json = xiaoqu_detect(name)
-	# 		save(name, parent_json, children_json)
-	# 	except Exception, e:
-	# 		logging.info(str(e))
-	# 		continue
+# for name in xiaoqu_name:
+# 	try:
+# 		name, parent_json, children_json = xiaoqu_detect(name)
+# 		save(name, parent_json, children_json)
+# 	except Exception, e:
+# 		logging.info(str(e))
+# 		continue
