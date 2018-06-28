@@ -31,6 +31,8 @@ RECOM_URL = "https://nj.lianjia.com/ershoufang/esfrecommend?id=*"
 
 FILE_NAME = "/Users/wubingyu/PycharmProjects/Projects/2.7.11/flask-baidumap/app/controller/temp.json"
 
+XIAOQU_NAME = "/Users/wubingyu/PycharmProjects/Projects/2.7.11/flask-baidumap/app/controller/xiaoqu.json"
+
 XIAOQU_URL = "https://nj.lianjia.com/xiaoqu/rs"
 
 XIAOQU_PAGE_URL = "https://nj.lianjia.com/xiaoqu/pg*/"
@@ -39,7 +41,7 @@ HOUSE_URL = "https://nj.lianjia.com/ershoufang/*.html"
 
 XIAOQU_HOUSE_URL = "https://nj.lianjia.com/ershoufang/rs*/"
 
-xiaoqu_name = []
+xiaoqu_name = set()
 
 xiaoqu_dict = dict()
 
@@ -67,16 +69,17 @@ def get_xiaoquname(content):
 	list = soup.find_all(no_rel, limit=30)
 	for entry in list:
 		logging.debug(re.search(">(.*)<", str(entry)).group(1))
-		xiaoqu_name.append(re.search(">(.*)<", str(entry)).group(1))
+		xiaoqu_name.add(re.search(">(.*)<", str(entry)).group(1))
 
 	page = re.search(r"{\"totalPage\":(\d+),\"curPage\":(\d+)}", content)
 	totalpage = int(page.group(1))
 	curpage = int(page.group(2))
 	logging.debug("totalPage:%d curPage:%d" % (totalpage, curpage))
-	if curpage <= totalpage:
-		return XIAOQU_PAGE_URL.replace("*", str(curpage + 1))
-	else:
-		return None
+	# if curpage <= totalpage:
+	# 	return XIAOQU_PAGE_URL.replace("*", str(curpage + 1))
+	# else:
+	# 	return None
+	return XIAOQU_PAGE_URL.replace("*", str(curpage + 1))
 
 
 def get_house_by_xiaoqu(content):
@@ -100,10 +103,18 @@ def get_house_graphx(content):
 		result.append(house)
 
 
-def write():
+def write(file_path=FILE_NAME):
 	final_result = list(set(result))
 	data = json.dumps(final_result, default=lambda object: object.__dict__)
-	with open(FILE_NAME, "r+") as f:
+	with open(file_path, "r+") as f:
+		f.read()
+		f.seek(0)
+		f.truncate()
+		f.writelines(data)
+
+
+def write(data, file_path=FILE_NAME):
+	with open(file_path, "r+") as f:
 		f.read()
 		f.seek(0)
 		f.truncate()
@@ -193,36 +204,20 @@ def get_House(url):
 if __name__ == '__main__':
 	# 获取小区名称
 	response = request_url(XIAOQU_URL)
-	# while True:
-	# 	next_page = get_xiaoquname(response)
-	# 	logging.debug(next_page)
-	# 	if not next_page:
-	# 		break
-	# 	response = request_url(next_page)
 
-	next_page = get_xiaoquname(response)
+	for _ in range(179):
+		next_page = get_xiaoquname(response)
+		logging.debug(next_page)
+		response = request_url(next_page)
 
+	print(len(xiaoqu_name))
 
+	write(json.dumps(xiaoqu_name), file_path=XIAOQU_NAME)
 
-	for name in xiaoqu_name:
-		try:
-			name, parent_json, children_json = xiaoqu_detect(name)
-			save(name, parent_json, children_json)
-		except Exception, e:
-			logging.info(str(e))
-			continue
-
-# 获得房子名 by小区名称
-# for name in xiaoqu_name:
-# 	xiaoqu_url = XIAOQU_HOUSE_URL.replace("*", name)
-# 	response = request_url(xiaoqu_url)
-# 	house_url = get_house_by_xiaoqu(response)
-# 	response = request_url(house_url)
-# 	get_house_graphx(response)
-
-# response = request_url("https://nj.lianjia.com/ershoufang/rs万达紫金明珠/")
-# get_house_by_xiaoqu(response)
-#
-# response = request_url("https://nj.lianjia.com/ershoufang/103102480999.html")
-# result_json = get_house_graphx(response)
-# write(result_json)
+	# for name in xiaoqu_name:
+	# 	try:
+	# 		name, parent_json, children_json = xiaoqu_detect(name)
+	# 		save(name, parent_json, children_json)
+	# 	except Exception, e:
+	# 		logging.info(str(e))
+	# 		continue
