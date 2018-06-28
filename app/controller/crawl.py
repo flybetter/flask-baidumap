@@ -203,14 +203,14 @@ if __name__ == '__main__':
 	# 获取小区名称
 	response = request_url(XIAOQU_URL)
 
-	for i in range(179):
-		next_page = get_xiaoquname(response, i + 1, 179)
+	for i in range(100):
+		next_page = get_xiaoquname(response, i + 1, 100)
 		logging.debug(next_page)
 		response = request_url(next_page)
 
 	print(len(xiaoqu_name))
 
-	write(json.dumps(xiaoqu_name), file_path=XIAOQU_NAME)
+	write(json.dumps(list(xiaoqu_name), ensure_ascii=False), file_path=XIAOQU_NAME)
 
 # for name in xiaoqu_name:
 # 	try:
