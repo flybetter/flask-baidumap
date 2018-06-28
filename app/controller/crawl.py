@@ -31,7 +31,7 @@ RECOM_URL = "https://nj.lianjia.com/ershoufang/esfrecommend?id=*"
 
 FILE_NAME = "/Users/wubingyu/PycharmProjects/Projects/2.7.11/flask-baidumap/app/controller/temp.json"
 
-XIAOQU_NAME = "/Users/wubingyu/PycharmProjects/Projects/2.7.11/flask-baidumap/app/controller/xiaoqu.json"
+XIAOQU_NAME = "xiaoqu.json"
 
 XIAOQU_URL = "https://nj.lianjia.com/xiaoqu/rs"
 
@@ -201,6 +201,7 @@ def get_House(url):
 
 if __name__ == '__main__':
 	# 获取小区名称
+	# 获取小区名称
 	response = request_url(XIAOQU_URL)
 
 	for i in range(100):
@@ -209,6 +210,8 @@ if __name__ == '__main__':
 		response = request_url(next_page)
 
 	print(len(xiaoqu_name))
+
+	XIAOQU_NAME = os.getcwd() + os.sep + XIAOQU_NAME
 
 	write(json.dumps(list(xiaoqu_name), ensure_ascii=False), file_path=XIAOQU_NAME)
 
