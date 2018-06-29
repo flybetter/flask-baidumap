@@ -6,6 +6,7 @@
 @author= wubingyu
 @create_time= 2018/6/22 上午11:20
 """
+
 import os
 import datetime
 import stat
@@ -17,13 +18,15 @@ import re
 from app.model.House import House
 from itertools import groupby
 from app.mysql.json_data import save
-
+from app.controller.util import get_xiaoqu_name
 import sys
+from multiprocessing import Pool
+
+logging.basicConfig(filename=os.path.join(os.getcwd(), "log.txt"), level=logging.DEBUG)
 
 reload(sys)
 sys.setdefaultencoding('utf8')
 
-logging.basicConfig(level=logging.DEBUG)
 # https://nj.lianjia.com/ershoufang/esfrecommend?id=103102480999
 # https://nj.lianjia.com/ershoufang/esfrecommend?id=103102455850
 
@@ -199,26 +202,38 @@ def get_House(url):
 	return house, houseId
 
 
+def process(name):
+	try:
+		name, parent_json, children_json = xiaoqu_detect(name)
+		save(name, parent_json, children_json)
+	except Exception, e:
+		logging.error(name, str(e))
+
+
 if __name__ == '__main__':
 	# 获取小区名称
-	# 获取小区名称
-	response = request_url(XIAOQU_URL)
+	# response = request_url(XIAOQU_URL)
+	#
+	# for i in range(100):
+	# 	next_page = get_xiaoquname(response, i + 1, 100)
+	# 	logging.debug(next_page)
+	# 	response = request_url(next_page)
+	#
+	# print(len(xiaoqu_name))
+	#
+	# XIAOQU_NAME = os.getcwd() + os.sep + XIAOQU_NAME
+	#
+	# write(json.dumps(list(xiaoqu_name), ensure_ascii=False), file_path=XIAOQU_NAME)
 
-	for i in range(100):
-		next_page = get_xiaoquname(response, i + 1, 100)
-		logging.debug(next_page)
-		response = request_url(next_page)
+	list = get_xiaoqu_name()
 
-	print(len(xiaoqu_name))
+	p = Pool()
+	p.map(process, list)
 
-	XIAOQU_NAME = os.getcwd() + os.sep + XIAOQU_NAME
-
-	write(json.dumps(list(xiaoqu_name), ensure_ascii=False), file_path=XIAOQU_NAME)
-
-# for name in xiaoqu_name:
+# for name in list:
 # 	try:
 # 		name, parent_json, children_json = xiaoqu_detect(name)
 # 		save(name, parent_json, children_json)
 # 	except Exception, e:
-# 		logging.info(str(e))
+# 		logging.error(name, str(e))
 # 		continue

@@ -12,27 +12,17 @@ logging.basicConfig(level=logging.DEBUG)
 
 
 def save(name, parent_json, children_json):
-	connection = pymysql.connect(
-		host='192.168.10.221',
-		port=3306,
-		user='root',
-		password='',
-		database='crawl',
-		use_unicode=True,
-		charset="utf8"
-	)
+	cursor, connection = mysql_connect()
 	cursor = connection.cursor()
-	sql = "insert into lianjia_json (name,parent_json,children_json) VALUES ('%s','%s','%s')" % (
+	sql = "insert into xiaoqu (name,parent_json,children_json) VALUES ('%s','%s','%s')" % (
 		name, parent_json, children_json)
 	cursor.execute(sql)
-	connection.commit()
-	cursor.close()
-	connection.close()
+	mysql_close(cursor, connection)
 
 
 def select_one(id):
 	cursor, connection = mysql_connect()
-	sql = "select * from lianjia_json where id=" + id
+	sql = "select * from xiaoqu where id=" + id
 	cursor.execute(sql)
 	data = cursor.fetchall()
 	mysql_close(cursor, connection)
@@ -41,7 +31,7 @@ def select_one(id):
 
 def select_all():
 	cursor, connection = mysql_connect()
-	sql = "select * from lianjia_json"
+	sql = "select * from xiaoqu"
 	cursor.execute(sql)
 	datas = cursor.fetchall()
 	mysql_close(cursor, connection)
@@ -49,7 +39,7 @@ def select_all():
 
 
 def mysql_connect():
-	connection = pymysql.connect(host='192.168.10.200', port=3306, user='root', password='', database='demo',
+	connection = pymysql.connect(host='192.168.10.221', port=3306, user='root', password='idontcare', database='crawl',
 								 use_unicode=True, charset='utf8')
 	cursor = connection.cursor()
 	return cursor, connection

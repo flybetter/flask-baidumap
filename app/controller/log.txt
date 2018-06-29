@@ -1,0 +1,51 @@
+['\xe4\xbd\xb3\xe6\x97\xa5\xe9\x9b\x85\xe8\x8b\x91', '\xe9\x83\xbd\xe5\xb8\x82\xe5\x90\x8d\xe5\x9b\xad']
+佳日雅苑
+都市名园
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/rs%E4%BD%B3%E6%97%A5%E9%9B%85%E8%8B%91/ HTTP/1.1" 200 None
+DEBUG:root:https://nj.lianjia.com/ershoufang/rs佳日雅苑/
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/rs%E9%83%BD%E5%B8%82%E5%90%8D%E5%9B%AD/ HTTP/1.1" 200 None
+DEBUG:root:https://nj.lianjia.com/ershoufang/rs都市名园/
+Traceback (most recent call last):
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 853, in emit
+    msg = self.format(record)
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 726, in format
+    return fmt.format(record)
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 465, in format
+    record.message = record.getMessage()
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 329, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Logged from file crawl.py, line 210
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103101821280.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/esfrecommend?id=103101821280 HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103100372982.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102437562.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102526353.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102202460.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102070019.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102456941.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102335037.html HTTP/1.1" 200 None
+DEBUG:urllib3.connectionpool:Starting new HTTPS connection (1): nj.lianjia.com:443
+DEBUG:urllib3.connectionpool:https://nj.lianjia.com:443 "GET /ershoufang/103102332015.html HTTP/1.1" 200 None
+Traceback (most recent call last):
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 853, in emit
+    msg = self.format(record)
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 726, in format
+    return fmt.format(record)
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 465, in format
+    record.message = record.getMessage()
+  File "/Users/wubingyu/.pyenv/versions/2.7.11/lib/python2.7/logging/__init__.py", line 329, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Logged from file crawl.py, line 210
