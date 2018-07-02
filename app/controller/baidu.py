@@ -11,12 +11,14 @@ from flask import render_template
 from app.controller.crawl import FILE_NAME
 from app.mysql.json_data import *
 import json
+import os
 
 
 @app.route("/")
 def show():
 	datas = select_all()
-	with open(FILE_NAME, "r+") as f:
+	print os.getcwd()
+	with open(os.getcwd() + os.sep + "app" + os.sep + "controller" + os.sep + FILE_NAME, "r+") as f:
 		points = f.read()
 	return render_template("map.html", points=points, datas=datas)
 

@@ -32,7 +32,8 @@ sys.setdefaultencoding('utf8')
 
 RECOM_URL = "https://nj.lianjia.com/ershoufang/esfrecommend?id=*"
 
-FILE_NAME = "/Users/wubingyu/PycharmProjects/Projects/2.7.11/flask-baidumap/app/controller/temp.json"
+# FILE_NAME = "/Users/wubingyu/PycharmProjects/Projects/2.7.11/flask-baidumap/app/controller/temp.json"
+FILE_NAME = "temp.json"
 
 XIAOQU_NAME = "xiaoqu.json"
 
