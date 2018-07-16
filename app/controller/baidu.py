@@ -18,9 +18,9 @@ import os
 def show():
 	datas = select_all()
 	print os.getcwd()
-	with open(os.getcwd() + os.sep + "app" + os.sep + "controller" + os.sep + FILE_NAME, "r+") as f:
-		points = f.read()
-	return render_template("map.html", points=points, datas=datas)
+	# with open(os.getcwd() + os.sep + "app" + os.sep + "controller" + os.sep + FILE_NAME, "r+") as f:
+	# 	points = f.read()
+	return render_template("map.html", points=None, datas=datas)
 
 
 @app.route("/xiaoqu/<id>")

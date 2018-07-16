@@ -51,5 +51,8 @@ def mysql_close(cursor, connection):
 	connection.close()
 
 
+
+
+
 if __name__ == '__main__':
 	select_one('1')
