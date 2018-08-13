@@ -6,25 +6,10 @@
 @author= wubingyu
 @create_time= 2018/6/29 上午9:34
 """
-from setuptools import setup
+from setuptools import setup,find_packages
 
 setup(
-	name='flask-baidumap',
-	package='app',
-	include_package_data=True,
-	install_requires=[
-		'beautifulsoup4',
-		'certifi',
-		'chardet',
-		'click',
-		'Flask',
-		'idna',
-		'itsdangerous',
-		'Jinja2',
-		'MarkupSafe',
-		'PyMySQL',
-		'requests',
-		'urllib3',
-		'Werkzeug'
-	],
+	name='baidumap',
+	version='0.1.0',
+	packages=find_packages()
 )
