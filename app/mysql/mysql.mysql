@@ -1,0 +1,11 @@
+create table xiaoqu2
+(
+  id            int auto_increment
+    primary key,
+  name          varchar(255) null
+  comment '小区名称',
+  parent_json   text         null
+  comment '小区',
+  children_json text         null
+  comment '关联小区'
+)ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;

@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.DEBUG)
 def save(name, parent_json, children_json):
 	cursor, connection = mysql_connect()
 	cursor = connection.cursor()
-	sql = "insert into xiaoqu (name,parent_json,children_json) VALUES ('%s','%s','%s')" % (
+	sql = "insert into crawlWeight2 (name,parent_json,children_json) VALUES ('%s','%s','%s')" % (
 		name, parent_json, children_json)
 	cursor.execute(sql)
 	mysql_close(cursor, connection)
@@ -22,7 +22,7 @@ def save(name, parent_json, children_json):
 
 def select_one(id):
 	cursor, connection = mysql_connect()
-	sql = "select * from xiaoqu where id=" + id
+	sql = "select * from crawlWeight2 where id=" + id
 	cursor.execute(sql)
 	data = cursor.fetchall()
 	mysql_close(cursor, connection)
@@ -31,7 +31,7 @@ def select_one(id):
 
 def select_all():
 	cursor, connection = mysql_connect()
-	sql = "select * from xiaoqu"
+	sql = "select * from crawlWeight2"
 	cursor.execute(sql)
 	datas = cursor.fetchall()
 	mysql_close(cursor, connection)
@@ -39,7 +39,7 @@ def select_all():
 
 
 def mysql_connect():
-	connection = pymysql.connect(host='192.168.10.221', port=3306, user='root', password='idontcare', database='crawl',
+	connection = pymysql.connect(host='192.168.10.221', port=3306, user='root', password='idontcare', database='demo',
 								 use_unicode=True, charset='utf8')
 	cursor = connection.cursor()
 	return cursor, connection

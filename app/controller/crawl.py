@@ -140,9 +140,9 @@ def xiaoqu_detect(name):
 	response = request_url(xiaoqu_url)
 	logging.debug(xiaoqu_url)
 	soup = BeautifulSoup(response, "html.parser")
-	list = soup.find_all("a", attrs={"class": "img", "data-el": "ershoufang", "data-bl": "list"})
+	souplist = soup.find_all("a", attrs={"class": "img", "data-el": "ershoufang", "data-bl": "list"})
 	house_top = None
-	for object in list:
+	for object in souplist:
 		# 获得小区里面房子
 		house_top, house_id = get_House(object['href'])
 		house_top.count = HOUSECOUNT['Top']
@@ -159,20 +159,9 @@ def xiaoqu_detect(name):
 	for i, key in enumerate(key_group):
 		if key[0] == name:
 			continue
-		if i == 0:
-			house = xiaoqu_dict[key[0]]
-			house.count = HOUSECOUNT['First']
-			final_result.append(house)
-		elif i == 1:
-			house = xiaoqu_dict[key[0]]
-			house.count = HOUSECOUNT['Second']
-			final_result.append(house)
-		elif i == 2:
-			house = xiaoqu_dict[key[0]]
-			house.count = HOUSECOUNT['Third']
-			final_result.append(house)
 		else:
 			house = xiaoqu_dict[key[0]]
+			house.count = len(list(key[1]))
 			final_result.append(house)
 
 	return name, json.dumps(house_top, default=lambda x: x.__dict__, ensure_ascii=False), json.dumps(final_result,
@@ -227,7 +216,6 @@ if __name__ == '__main__':
 	# write(json.dumps(list(xiaoqu_name), ensure_ascii=False), file_path=XIAOQU_NAME)
 
 	list = get_xiaoqu_name()
-
 	p = Pool()
 	p.map(process, list)
 
